@@ -1,0 +1,14 @@
+name: MSOBB independent suite
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+jobs:
+  marker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Controlled title result
+        run: |
+          if [[ "${{ contains(github.event.pull_request.title, 'late failure') }}" == "true" ]]; then
+            exit 1
+          fi
+          echo 'MSOBB owned success marker'
